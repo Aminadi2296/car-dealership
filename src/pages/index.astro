@@ -1,0 +1,41 @@
+---
+// Define the Car type
+interface Car {
+  id: number;
+  make: string;
+  model: string;
+  year: number;
+  price: number;
+  category: string;
+  image_url: string;
+  description: string;
+}
+
+// Fetch data from the backend
+const response = await fetch('http://localhost:3001/api/cars');
+const cars: Car[] = await response.json();
+---
+
+<html>
+  <head>
+    <title>Car Dealership</title>
+  </head>
+  <body>
+    <h1>Welcome to Our Car Dealership</h1>
+    <h2>Available Cars</h2>
+    <ul>
+      {
+        cars.map((car) => (
+          <li>
+            <h3>
+              {car.make} {car.model}
+            </h3>
+            <p>Year: {car.year}</p>
+            <p>Price: ${car.price}</p>
+            <img src={car.image_url} alt={`${car.make} ${car.model}`} />
+          </li>
+        ))
+      }
+    </ul>
+  </body>
+</html>
